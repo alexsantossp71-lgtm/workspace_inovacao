@@ -53,12 +53,12 @@ header p {
     text-decoration: none;
     font-weight: 600;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 main {
@@ -84,16 +84,16 @@ main {
     background-color: var(--card-bg);
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
 
 .card-number {
@@ -147,4 +147,125 @@ footer p {
     header h1 {
         font-size: 2.5rem;
     }
+}
+
+/* Lesson Page Styles */
+.lesson-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.lesson-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-header .lesson-number {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.lesson-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-top: -2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.lesson-content h2 {
+    color: var(--secondary-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+}
+
+.lesson-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.125rem;
+}
+
+.lesson-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.lesson-content li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Rich Content Elements */
+.highlight-box {
+    background-color: #eff6ff;
+    border-left: 4px solid var(--primary-color);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.highlight-box h4 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.concept-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 2rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.key-takeaways {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.key-takeaways h3 {
+    color: #166534;
+    margin-bottom: 1rem;
+}
+
+.author-quote {
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+}
+
+.author-quote span {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-style: normal;
+    color: var(--light-text);
 }
