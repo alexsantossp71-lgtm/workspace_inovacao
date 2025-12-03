@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Plano de Negócio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>Plano de Negócio</h1>
+        <p>Teste seus conhecimentos sobre a aula 06.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid"></div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="aula06.html" class="nav-button home">Voltar para a Aula</a>
+                    <a href="aula07.html" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "Qual a principal diferença entre Modelo de Negócio e Plano de Negócio?",
+                options: [
+                    "O Modelo é um documento longo; o Plano é uma folha única.",
+                    "O Modelo explica a lógica de criação de valor; o Plano projeta o futuro detalhadamente (3-5 anos).",
+                    "Não há diferença, são sinônimos.",
+                    "O Plano é feito antes da ideia; o Modelo depois."
+                ],
+                correct: 1,
+                explanation: "O Modelo é dinâmico e ágil (Canvas), enquanto o Plano é denso, estruturado e focado em viabilidade econômica de longo prazo."
+            },
+            {
+                question: "Qual é a parte mais importante de um Plano de Negócio?",
+                options: [
+                    "Os anexos.",
+                    "O Sumário Executivo.",
+                    "A capa.",
+                    "A lista de funcionários."
+                ],
+                correct: 1,
+                explanation: "O Sumário Executivo é o resumo que convence o investidor a ler o restante do documento. Se for ruim, o plano é descartado."
+            },
+            {
+                question: "O que é TAM, SAM e SOM na Análise de Mercado?",
+                options: [
+                    "Nomes dos fundadores.",
+                    "Siglas para impostos.",
+                    "Métricas para estimar o tamanho do mercado (Total, Endereçável e Atingível).",
+                    "Tipos de marketing."
+                ],
+                correct: 2,
+                explanation: "São fundamentais para mostrar o potencial de crescimento da empresa para investidores."
+            },
+            {
+                question: "O que compõe o Plano de Marketing (4 Ps)?",
+                options: [
+                    "Pessoas, Planetas, Lucros e Perdas.",
+                    "Preço, Produto, Praça e Promoção.",
+                    "Planejamento, Pesquisa, Produção e Pós-venda.",
+                    "Paixão, Propósito, Perseverança e Paciência."
+                ],
+                correct: 1,
+                explanation: "O Mix de Marketing clássico define como a empresa vai atrair e reter clientes."
+            },
+            {
+                question: "O que é analisado no Plano Operacional?",
+                options: [
+                    "A cor do logotipo.",
+                    "Como a mágica acontece: localização, equipamentos, equipe e processos.",
+                    "O lucro líquido.",
+                    "A concorrência."
+                ],
+                correct: 1,
+                explanation: "É a descrição prática de como a empresa vai funcionar no dia a dia para entregar o que prometeu."
+            },
+            {
+                question: "O que significa a sigla SWOT na Análise SWOT?",
+                options: [
+                    "Success, Work, Opportunity, Time.",
+                    "Strengths (Forças), Weaknesses (Fraquezas), Opportunities (Oportunidades), Threats (Ameaças).",
+                    "Sales, Wealth, Organization, Team.",
+                    "System, Web, Online, Tech."
+                ],
+                correct: 1,
+                explanation: "É uma ferramenta clássica para analisar o ambiente interno (Forças/Fraquezas) e externo (Oportunidades/Ameaças)."
+            },
+            {
+                question: "Por que números sem embasamento ('chutes') são perigosos em um Plano de Negócio?",
+                options: [
+                    "Porque ninguém gosta de matemática.",
+                    "Porque destroem a credibilidade do plano e do empreendedor.",
+                    "Porque são difíceis de calcular.",
+                    "Porque o papel aceita tudo."
+                ],
+                correct: 1,
+                explanation: "Investidores experientes percebem rapidamente quando as projeções financeiras não têm base na realidade."
+            },
+            {
+                question: "Qual a função do Plano Financeiro?",
+                options: [
+                    "Pagar os impostos.",
+                    "Projetar fluxo de caixa, DRE, Balanço e calcular indicadores como ROI e Payback.",
+                    "Pedir empréstimo no banco.",
+                    "Contratar um contador."
+                ],
+                correct: 1,
+                explanation: "Ele traduz toda a estratégia da empresa em números, demonstrando se a conta fecha."
+            },
+            {
+                question: "Complete a frase de Eisenhower: 'Planos são inúteis, mas...'",
+                options: [
+                    "O planejamento é indispensável.",
+                    "O futuro é incerto.",
+                    "A execução é tudo.",
+                    "O dinheiro é importante."
+                ],
+                correct: 0,
+                explanation: "O valor não está no documento estático, mas no processo de planejamento que prepara o empreendedor para as incertezas."
+            },
+            {
+                question: "Com que frequência um Plano de Negócio deve ser revisado?",
+                options: [
+                    "Nunca, uma vez feito está feito.",
+                    "A cada 10 anos.",
+                    "Periodicamente, pois é um documento vivo que deve se adaptar à realidade.",
+                    "Apenas quando a empresa falir."
+                ],
+                correct: 2,
+                explanation: "O mercado muda, e o plano deve ser ajustado para refletir as novas estratégias e aprendizados."
+            }
+        ];
+
+        const nextLessonUrl = "aula07.html";
+
+        // Quiz Logic (Same as template)
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Gestão do Desenvolvimento de Produtos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>Gestão do Desenvolvimento de Produtos</h1>
+        <p>Teste seus conhecimentos sobre a aula 03.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid"></div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="aula03.html" class="nav-button home">Voltar para a Aula</a>
+                    <a href="aula04.html" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "O que é o modelo Stage-Gate?",
+                options: [
+                    "Um tipo de portão automático.",
+                    "Um processo de desenvolvimento de produtos que divide o projeto em estágios e portões de decisão.",
+                    "Uma técnica de brainstorming.",
+                    "Um software de gestão de projetos."
+                ],
+                correct: 1,
+                explanation: "Criado por Robert Cooper, o Stage-Gate é o padrão ouro para gerenciar o funil de inovação, reduzindo incertezas a cada etapa."
+            },
+            {
+                question: "O que acontece em um 'Gate' (Portão) de decisão?",
+                options: [
+                    "O projeto é automaticamente aprovado.",
+                    "Os funcionários tiram férias.",
+                    "Um comitê decide se o projeto deve continuar (Go), ser cancelado (Kill), congelado (Hold) ou reciclado (Recycle).",
+                    "O produto é lançado no mercado."
+                ],
+                correct: 2,
+                explanation: "Os Gates servem como filtros de qualidade e alinhamento estratégico para evitar desperdício de recursos."
+            },
+            {
+                question: "O que significa a decisão 'Kill' em um Gate?",
+                options: [
+                    "Demitir a equipe.",
+                    "O projeto é cancelado para evitar desperdício de recursos.",
+                    "O projeto foi um sucesso.",
+                    "Matar a concorrência."
+                ],
+                correct: 1,
+                explanation: "Cancelar um projeto cedo (Fail Fast) é positivo pois libera recursos para ideias mais promissoras."
+            },
+            {
+                question: "O que diz a 'Regra de 10' sobre o custo da mudança?",
+                options: [
+                    "O custo diminui 10 vezes a cada fase.",
+                    "O custo aumenta 10 vezes a cada fase que o erro avança sem ser corrigido.",
+                    "Todo projeto deve custar 10 mil reais.",
+                    "Você tem 10 dias para corrigir um erro."
+                ],
+                correct: 1,
+                explanation: "Corrigir um erro no design é barato; corrigir após o lançamento é exponencialmente mais caro."
+            },
+            {
+                question: "Quais são as fases do Ciclo de Vida do Produto (PLC)?",
+                options: [
+                    "Janeiro, Fevereiro, Março e Abril.",
+                    "Ideia, Protótipo, Teste e Venda.",
+                    "Introdução, Crescimento, Maturidade e Declínio.",
+                    "Nascimento, Escola, Trabalho e Aposentadoria."
+                ],
+                correct: 2,
+                explanation: "Todo produto passa por essas 4 fases clássicas de mercado."
+            },
+            {
+                question: "Em qual fase do PLC o produto é considerado uma 'vaca leiteira' (gera muito caixa)?",
+                options: [
+                    "Introdução.",
+                    "Crescimento.",
+                    "Maturidade.",
+                    "Declínio."
+                ],
+                correct: 2,
+                explanation: "Na Maturidade, as vendas estabilizam e o foco é em eficiência, gerando o máximo de lucro."
+            },
+            {
+                question: "O que caracteriza a fase de Introdução?",
+                options: [
+                    "Vendas altas e lucro alto.",
+                    "Vendas baixas, alto custo de marketing e lucro geralmente negativo.",
+                    "Concorrência acirrada.",
+                    "Produto obsoleto."
+                ],
+                correct: 1,
+                explanation: "No início, gasta-se muito para educar o mercado e adquirir os primeiros clientes."
+            },
+            {
+                question: "Por que é importante ter um portfólio de produtos equilibrado?",
+                options: [
+                    "Para ter produtos em todas as fases do ciclo de vida, garantindo o futuro da empresa.",
+                    "Para confundir a concorrência.",
+                    "Para ocupar mais espaço na prateleira.",
+                    "Não é importante."
+                ],
+                correct: 0,
+                explanation: "Se todos os produtos estiverem na fase de declínio, a empresa morrerá em breve. É preciso ter novos produtos entrando (Introdução/Crescimento)."
+            },
+            {
+                question: "O que são 'projetos zumbis'?",
+                options: [
+                    "Projetos sobre mortos-vivos.",
+                    "Projetos que já deveriam ter sido cancelados (Kill) mas continuam consumindo recursos sem progredir.",
+                    "Projetos que funcionam apenas à noite.",
+                    "Projetos secretos."
+                ],
+                correct: 1,
+                explanation: "A falta de disciplina nos Gates permite que projetos sem futuro continuem 'andando' como zumbis."
+            },
+            {
+                question: "Qual a mensagem da frase 'Não existe produto eterno, apenas inovação eterna'?",
+                options: [
+                    "Que devemos vender o mesmo produto para sempre.",
+                    "Que a inovação é um processo contínuo de substituição de produtos obsoletos por novos.",
+                    "Que nada dura para sempre.",
+                    "Que produtos antigos são melhores."
+                ],
+                correct: 1,
+                explanation: "As empresas devem se reinventar constantemente, pois todo produto eventualmente entra em declínio."
+            }
+        ];
+
+        const nextLessonUrl = "aula04.html";
+
+        // Quiz Logic (Same as template)
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

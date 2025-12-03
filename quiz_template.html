@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: [Lesson Title]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>[Lesson Title]</h1>
+        <p>Teste seus conhecimentos sobre a aula.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <!-- Question will be injected here -->
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid">
+                        <!-- Options injected here -->
+                    </div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="[Lesson URL]" class="nav-button home">Voltar para a Aula</a>
+                    <a href="[Next Lesson URL]" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        // Quiz Data - TO BE REPLACED IN EACH FILE
+        const quizData = [
+            {
+                question: "Question 1 text?",
+                options: ["Option A", "Option B", "Option C", "Option D"],
+                correct: 0, // Index of correct option
+                explanation: "Explanation for why A is correct."
+            },
+            // ... 9 more questions
+        ];
+
+        const nextLessonUrl = "[Next Lesson URL]"; // Replace or set to null
+
+        // Quiz Logic
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            // Disable all buttons
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        // Initialize
+        loadQuestion();
+    </script>
+</body>
+
+</html>

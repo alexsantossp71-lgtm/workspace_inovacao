@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Análise de Viabilidade Financeira</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>Análise de Viabilidade Financeira</h1>
+        <p>Teste seus conhecimentos sobre a aula 08.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid"></div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="aula08.html" class="nav-button home">Voltar para a Aula</a>
+                    <a href="aula09.html" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "Qual é a principal função da análise de viabilidade financeira?",
+                options: [
+                    "Calcular o imposto de renda.",
+                    "Responder se vale a pena investir dinheiro e tempo no projeto.",
+                    "Contratar funcionários.",
+                    "Criar o logotipo da empresa."
+                ],
+                correct: 1,
+                explanation: "Ela projeta cenários futuros para validar economicamente a ideia antes de gastar recursos."
+            },
+            {
+                question: "O que é VPL (Valor Presente Líquido)?",
+                options: [
+                    "O valor do produto na loja.",
+                    "A soma de todos os fluxos de caixa futuros trazidos para o valor de hoje.",
+                    "O lucro do mês passado.",
+                    "O valor da empresa na bolsa."
+                ],
+                correct: 1,
+                explanation: "O VPL considera o valor do dinheiro no tempo. Se for positivo, o projeto cria valor."
+            },
+            {
+                question: "Se o VPL de um projeto for negativo, o que isso significa?",
+                options: [
+                    "Que o projeto é excelente.",
+                    "Que o projeto destrói valor e não deve ser realizado.",
+                    "Que o projeto vai dar lucro rápido.",
+                    "Que o banco vai emprestar dinheiro."
+                ],
+                correct: 1,
+                explanation: "VPL negativo significa que o retorno é menor que o custo de oportunidade do capital investido."
+            },
+            {
+                question: "O que é TIR (Taxa Interna de Retorno)?",
+                options: [
+                    "A taxa de juros do cartão de crédito.",
+                    "A taxa de retorno que faz o VPL ser zero.",
+                    "A taxa de imposto.",
+                    "A taxa de crescimento de vendas."
+                ],
+                correct: 1,
+                explanation: "A TIR é a rentabilidade intrínseca do projeto. Deve ser comparada com a TMA (Taxa Mínima de Atratividade)."
+            },
+            {
+                question: "O que é Payback?",
+                options: [
+                    "O dinheiro que você paga de volta ao banco.",
+                    "O tempo necessário para recuperar o investimento inicial.",
+                    "Um desconto na compra.",
+                    "O lucro final."
+                ],
+                correct: 1,
+                explanation: "É uma métrica de risco/liquidez. Quanto menor o Payback, mais rápido o dinheiro volta para o caixa."
+            },
+            {
+                question: "O que é o Ponto de Equilíbrio (Break-even Point)?",
+                options: [
+                    "Quando a empresa quebra.",
+                    "O volume de vendas onde a Receita Total iguala os Custos Totais (Lucro Zero).",
+                    "O ponto mais alto de vendas.",
+                    "O dia do pagamento dos salários."
+                ],
+                correct: 1,
+                explanation: "A partir desse ponto, cada unidade vendida gera lucro. Antes dele, a empresa opera no prejuízo."
+            },
+            {
+                question: "O que é Burn Rate?",
+                options: [
+                    "A taxa de queima de gordura.",
+                    "Quanto dinheiro a empresa 'queima' (gasta) por mês para operar.",
+                    "A taxa de juros.",
+                    "A taxa de demissão."
+                ],
+                correct: 1,
+                explanation: "É uma métrica crítica para startups que ainda não atingiram o Break-even."
+            },
+            {
+                question: "O que é Runway?",
+                options: [
+                    "Uma pista de decolagem.",
+                    "Quantos meses de vida a empresa tem antes do dinheiro acabar (Caixa / Burn Rate).",
+                    "Um desfile de moda.",
+                    "O caminho para o sucesso."
+                ],
+                correct: 1,
+                explanation: "Se o Runway acabar antes da empresa gerar caixa ou captar novo investimento, ela morre."
+            },
+            {
+                question: "Qual a diferença entre Lucro e Caixa?",
+                options: [
+                    "Não há diferença.",
+                    "Lucro é uma opinião contábil; Caixa é o dinheiro que realmente está na conta.",
+                    "Lucro é dinheiro físico; Caixa é dinheiro digital.",
+                    "Caixa é menos importante que lucro."
+                ],
+                correct: 1,
+                explanation: "Uma empresa pode dar lucro contábil e quebrar por falta de caixa (ex: vendeu a prazo e não recebeu, mas tem que pagar fornecedores à vista)."
+            },
+            {
+                question: "Complete o ditado financeiro: 'Faturamento é vaidade, lucro é sanidade, ...'",
+                options: [
+                    "Prejuízo é fatalidade.",
+                    "Caixa é rei.",
+                    "Dívida é pecado.",
+                    "Investimento é necessidade."
+                ],
+                correct: 1,
+                explanation: "O caixa é o oxigênio da empresa. Sem ele, a operação para imediatamente."
+            }
+        ];
+
+        const nextLessonUrl = "aula09.html";
+
+        // Quiz Logic (Same as template)
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

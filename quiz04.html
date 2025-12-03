@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Criatividade e Exploração</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>Criatividade e Exploração</h1>
+        <p>Teste seus conhecimentos sobre a aula 04.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid"></div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="aula04.html" class="nav-button home">Voltar para a Aula</a>
+                    <a href="aula05.html" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "Qual é a visão correta sobre a criatividade apresentada na aula?",
+                options: [
+                    "É um dom divino que poucos têm.",
+                    "É um processo cognitivo que pode ser treinado e estimulado.",
+                    "Depende apenas de sorte.",
+                    "Só artistas são criativos."
+                ],
+                correct: 1,
+                explanation: "A neurociência mostra que a criatividade é a habilidade de conectar redes neurais distintas, algo que pode ser desenvolvido."
+            },
+            {
+                question: "Quais são as 4 fases do processo criativo de Wallas?",
+                options: [
+                    "Sonhar, Acordar, Trabalhar e Dormir.",
+                    "Preparação, Incubação, Iluminação e Verificação.",
+                    "Ideia, Projeto, Venda e Lucro.",
+                    "Início, Meio, Fim e Recomeço."
+                ],
+                correct: 1,
+                explanation: "Essas fases descrevem como o cérebro processa informações para gerar insights."
+            },
+            {
+                question: "O que acontece na fase de 'Incubação'?",
+                options: [
+                    "Você estuda muito.",
+                    "Você apresenta a ideia.",
+                    "O problema fica 'de molho' no subconsciente enquanto você faz outras coisas.",
+                    "Você desiste do problema."
+                ],
+                correct: 2,
+                explanation: "É o momento de distanciamento, onde o cérebro faz conexões em segundo plano (o famoso 'dormir sobre o problema')."
+            },
+            {
+                question: "O que é a técnica SCAMPER?",
+                options: [
+                    "Um tipo de escâner.",
+                    "Uma lista de verificação para modificar algo existente e gerar novas ideias.",
+                    "Um software de design.",
+                    "Uma marca de tênis."
+                ],
+                correct: 1,
+                explanation: "SCAMPER é um acrônimo para Substituir, Combinar, Adaptar, Modificar, Propor outro uso, Eliminar e Reorganizar."
+            },
+            {
+                question: "O que significa o 'E' no SCAMPER?",
+                options: [
+                    "Esquecer.",
+                    "Eliminar (simplificar, tirar o desnecessário).",
+                    "Escrever.",
+                    "Estudar."
+                ],
+                correct: 1,
+                explanation: "Eliminar o supérfluo é uma forma poderosa de inovação (ex: iPhone eliminou o teclado físico)."
+            },
+            {
+                question: "Qual a diferença entre Divergência e Convergência?",
+                options: [
+                    "Não há diferença.",
+                    "Divergência é criar muitas opções; Convergência é selecionar e refinar as melhores.",
+                    "Divergência é ruim e Convergência é boa.",
+                    "Divergência é fechar opções; Convergência é abrir opções."
+                ],
+                correct: 1,
+                explanation: "O processo criativo precisa de ambos: abrir o leque (divergir) e depois fechar o leque (convergir)."
+            },
+            {
+                question: "Por que não se deve julgar as ideias durante a fase de Divergência (Brainstorming)?",
+                options: [
+                    "Porque é falta de educação.",
+                    "Porque o julgamento bloqueia o fluxo criativo e impede ideias ousadas.",
+                    "Porque todas as ideias são perfeitas.",
+                    "Porque o chefe não gosta."
+                ],
+                correct: 1,
+                explanation: "Julgar cedo demais mata a criatividade. É como pisar no freio e no acelerador ao mesmo tempo."
+            },
+            {
+                question: "Complete a frase de Linus Pauling: 'A melhor maneira de ter uma boa ideia é...'",
+                options: [
+                    "Copiar de alguém.",
+                    "Ter muitas ideias.",
+                    "Esperar a inspiração.",
+                    "Pagar por ela."
+                ],
+                correct: 1,
+                explanation: "A quantidade gera qualidade. Quanto mais ideias você gera, maior a chance de uma delas ser brilhante."
+            },
+            {
+                question: "O que é o 'Duplo Diamante' no Design Thinking?",
+                options: [
+                    "Uma joia cara.",
+                    "Um modelo que alterna momentos de divergência e convergência.",
+                    "Um formato de logotipo.",
+                    "Um prêmio de inovação."
+                ],
+                correct: 1,
+                explanation: "O Duplo Diamante representa graficamente os dois ciclos de abrir e fechar opções (no problema e na solução)."
+            },
+            {
+                question: "Qual é a principal causa do bloqueio criativo citada na aula?",
+                options: [
+                    "Falta de talento.",
+                    "Preguiça.",
+                    "Falta de repertório (Preparação) ou cansaço (falta de Incubação).",
+                    "Má sorte."
+                ],
+                correct: 2,
+                explanation: "Sem 'combustível' (informação/repertório) ou sem descanso, o cérebro não consegue fazer novas conexões."
+            }
+        ];
+
+        const nextLessonUrl = "aula05.html";
+
+        // Quiz Logic (Same as template)
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

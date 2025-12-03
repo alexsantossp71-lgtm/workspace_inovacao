@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Lean Startup e Design Thinking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>Lean Startup e Design Thinking</h1>
+        <p>Teste seus conhecimentos sobre a aula 05.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid"></div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="aula05.html" class="nav-button home">Voltar para a Aula</a>
+                    <a href="aula06.html" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "Qual é o foco principal do Design Thinking?",
+                options: [
+                    "Criar produtos bonitos.",
+                    "Resolver problemas complexos com foco no ser humano (Empatia).",
+                    "Reduzir custos de produção.",
+                    "Aumentar o preço das ações."
+                ],
+                correct: 1,
+                explanation: "O Design Thinking começa com a Empatia para entender profundamente a dor do usuário."
+            },
+            {
+                question: "Qual é a ordem correta das fases do Design Thinking?",
+                options: [
+                    "Empatia, Definição, Ideação, Prototipação, Teste.",
+                    "Ideia, Venda, Produção, Entrega.",
+                    "Planejamento, Execução, Controle, Encerramento.",
+                    "Teste, Erro, Correção, Lançamento."
+                ],
+                correct: 0,
+                explanation: "Este é o fluxo clássico, embora seja iterativo e não linear."
+            },
+            {
+                question: "O que Eric Ries trouxe para o empreendedorismo com o Lean Startup?",
+                options: [
+                    "A ideia de que startups devem ser grandes desde o início.",
+                    "O método científico (Construir-Medir-Aprender).",
+                    "A necessidade de planos de negócios de 100 páginas.",
+                    "O fim do marketing."
+                ],
+                correct: 1,
+                explanation: "O Lean Startup trata a startup como um experimento científico para validar hipóteses."
+            },
+            {
+                question: "O que é um MVP (Produto Mínimo Viável)?",
+                options: [
+                    "Um produto mal feito e incompleto.",
+                    "A versão final do produto.",
+                    "A menor versão do produto que permite aprender e validar hipóteses com o menor esforço.",
+                    "Um protótipo de papel."
+                ],
+                correct: 2,
+                explanation: "O MVP deve entregar valor real, mesmo que mínimo, para permitir o aprendizado (ciclo de feedback)."
+            },
+            {
+                question: "Na analogia do carro, qual seria um bom MVP?",
+                options: [
+                    "Uma roda.",
+                    "Um chassi sem motor.",
+                    "Um skate.",
+                    "Um carro sem bancos."
+                ],
+                correct: 2,
+                explanation: "Um skate já resolve o problema de transporte (ponto A ao B) de forma simples, enquanto uma roda sozinha não serve para nada."
+            },
+            {
+                question: "O que significa 'Pivotar'?",
+                options: [
+                    "Dançar balé.",
+                    "Mudar a estratégia fundamental do negócio sem mudar a visão.",
+                    "Desistir da empresa.",
+                    "Contratar mais gente."
+                ],
+                correct: 1,
+                explanation: "Pivotar é fazer uma mudança de direção baseada no aprendizado (ex: mudar o público-alvo ou o modelo de receita)."
+            },
+            {
+                question: "O que significa 'Perseverar'?",
+                options: [
+                    "Continuar fazendo a mesma coisa mesmo que dê errado.",
+                    "Manter a estratégia atual porque os dados validaram as hipóteses.",
+                    "Ignorar os clientes.",
+                    "Pedir mais dinheiro."
+                ],
+                correct: 1,
+                explanation: "Se os dados mostram que você está no caminho certo, você deve perseverar e acelerar."
+            },
+            {
+                question: "Complete a frase de Reid Hoffman: 'Se você não tem vergonha da primeira versão do seu produto...'",
+                options: [
+                    "Você é um gênio.",
+                    "Você lançou tarde demais.",
+                    "Você fez um ótimo trabalho.",
+                    "Você deve se orgulhar."
+                ],
+                correct: 1,
+                explanation: "Esperar o produto ficar perfeito significa perder a oportunidade de aprender com o mercado real."
+            },
+            {
+                question: "Qual a diferença de foco entre Design Thinking e Lean Startup?",
+                options: [
+                    "Não há diferença.",
+                    "Design Thinking foca na Desejabilidade (Problema certo); Lean Startup foca na Viabilidade/Praticabilidade (Solução eficiente).",
+                    "Design Thinking é para artistas; Lean Startup é para engenheiros.",
+                    "Design Thinking é antigo; Lean Startup é novo."
+                ],
+                correct: 1,
+                explanation: "Ambos são complementares: um garante que você resolve o problema certo, o outro que você constrói a solução do jeito certo."
+            },
+            {
+                question: "Qual é o objetivo final do ciclo Construir-Medir-Aprender?",
+                options: [
+                    "Construir o máximo possível.",
+                    "Medir tudo.",
+                    "Aprender o que construir (conhecimento validado).",
+                    "Gastar todo o orçamento."
+                ],
+                correct: 2,
+                explanation: "O produto e os dados são apenas meios para atingir o fim: o aprendizado validado sobre o negócio."
+            }
+        ];
+
+        const nextLessonUrl = "aula06.html";
+
+        // Quiz Logic (Same as template)
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

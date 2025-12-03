@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Modelagem de Negócios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="lesson-header">
+        <span class="lesson-number">Quiz</span>
+        <h1>Modelagem de Negócios</h1>
+        <p>Teste seus conhecimentos sobre a aula 07.</p>
+    </header>
+
+    <main class="lesson-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="question-counter">Questão 1 de 10</span>
+            </div>
+
+            <div id="quiz-content">
+                <div class="question-card">
+                    <p class="question-text" id="question-text"></p>
+                    <div class="options-grid" id="options-grid"></div>
+                </div>
+
+                <div class="feedback-section" id="feedback-section">
+                    <h4 id="feedback-title"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="next-btn" class="nav-button next" style="display: none;">Próxima Pergunta
+                        &rarr;</button>
+                </div>
+            </div>
+
+            <div id="result-card" class="result-card">
+                <h2>Quiz Finalizado!</h2>
+                <p>Sua pontuação final:</p>
+                <div class="score-display"><span id="final-score">0</span>/10</div>
+                <p id="score-message"></p>
+
+                <div class="lesson-navigation" style="justify-content: center; margin-top: 2rem;">
+                    <button onclick="location.reload()" class="nav-button prev">Tentar Novamente</button>
+                    <a href="aula07.html" class="nav-button home">Voltar para a Aula</a>
+                    <a href="aula08.html" class="nav-button next" id="next-lesson-btn">Próxima Aula &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Workspace Inovação.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "O que é o Business Model Canvas (BMC)?",
+                options: [
+                    "Uma tela de pintura.",
+                    "Uma ferramenta visual de uma página para descrever, projetar e pivotar modelos de negócios.",
+                    "Um software de contabilidade.",
+                    "Um plano de negócios de 100 páginas."
+                ],
+                correct: 1,
+                explanation: "O BMC permite visualizar a lógica de como a empresa cria, entrega e captura valor em um único quadro."
+            },
+            {
+                question: "Quantos blocos compõem o Business Model Canvas?",
+                options: [
+                    "5 blocos.",
+                    "7 blocos.",
+                    "9 blocos.",
+                    "12 blocos."
+                ],
+                correct: 2,
+                explanation: "Os 9 blocos cobrem as quatro áreas principais: Clientes, Oferta, Infraestrutura e Viabilidade Financeira."
+            },
+            {
+                question: "O que define o bloco 'Proposta de Valor'?",
+                options: [
+                    "O preço do produto.",
+                    "O problema que estamos resolvendo e a necessidade que estamos satisfazendo para o cliente.",
+                    "O valor de mercado da empresa.",
+                    "O salário dos funcionários."
+                ],
+                correct: 1,
+                explanation: "É o coração do modelo: o motivo pelo qual o cliente escolhe você e não a concorrência."
+            },
+            {
+                question: "O que é 'Product-Market Fit'?",
+                options: [
+                    "Um produto fitness.",
+                    "O encaixe perfeito entre a Proposta de Valor e o Segmento de Clientes.",
+                    "Quando o produto é barato.",
+                    "Quando a empresa tem lucro."
+                ],
+                correct: 1,
+                explanation: "É quando você constrói algo que um grupo específico de pessoas deseja desesperadamente."
+            },
+            {
+                question: "Qual bloco descreve 'Como nossos produtos chegam até o cliente'?",
+                options: [
+                    "Relacionamento com Clientes.",
+                    "Canais.",
+                    "Atividades Chave.",
+                    "Parcerias Principais."
+                ],
+                correct: 1,
+                explanation: "Canais são os pontos de contato (físicos ou digitais) para comunicação, distribuição e venda."
+            },
+            {
+                question: "O que caracteriza o modelo de negócio 'Freemium'?",
+                options: [
+                    "Tudo é pago.",
+                    "Tudo é de graça para sempre.",
+                    "Oferece o básico de graça e cobra por funcionalidades premium.",
+                    "O cliente paga o quanto quiser."
+                ],
+                correct: 2,
+                explanation: "Exemplos clássicos são Spotify, Dropbox e LinkedIn."
+            },
+            {
+                question: "O que é o modelo 'Long Tail' (Cauda Longa)?",
+                options: [
+                    "Vender poucos itens de muitos produtos diferentes (nicho), em vez de muitos de poucos (hits).",
+                    "Ter uma fila de espera longa.",
+                    "Vender produtos para animais.",
+                    "Vender apenas os produtos mais populares."
+                ],
+                correct: 0,
+                explanation: "A internet permitiu que empresas como Amazon e Netflix lucrassem vendendo produtos de nicho que não caberiam em lojas físicas."
+            },
+            {
+                question: "O Uber é um exemplo de qual padrão de modelo de negócio?",
+                options: [
+                    "Franquia.",
+                    "Plataforma Multilateral.",
+                    "Assinatura.",
+                    "Venda Direta."
+                ],
+                correct: 1,
+                explanation: "Ele conecta dois grupos distintos mas interdependentes: motoristas e passageiros."
+            },
+            {
+                question: "O que descreve o bloco 'Fontes de Receita'?",
+                options: [
+                    "De onde vem o dinheiro dos investidores.",
+                    "Por qual valor e como os clientes estão dispostos a pagar.",
+                    "O lucro líquido.",
+                    "Os custos da empresa."
+                ],
+                correct: 1,
+                explanation: "Pode ser venda única, assinatura, aluguel, licenciamento, taxa de corretagem, etc."
+            },
+            {
+                question: "Complete a frase de W. Chan Kim: 'Não compita com rivais, ...'",
+                options: [
+                    "Destrua-os.",
+                    "Compre-os.",
+                    "Torne-os irrelevantes.",
+                    "Ignore-os."
+                ],
+                correct: 2,
+                explanation: "A Estratégia do Oceano Azul sugere criar novos espaços de mercado onde a concorrência se torna irrelevante."
+            }
+        ];
+
+        const nextLessonUrl = "aula08.html";
+
+        // Quiz Logic (Same as template)
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContent = document.getElementById('quiz-content');
+        const resultCard = document.getElementById('result-card');
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+
+        if (!nextLessonUrl || nextLessonUrl === "null") {
+            if (nextLessonBtn) nextLessonBtn.style.display = 'none';
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentQuestion];
+            questionText.textContent = data.question;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
+            progressFill.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+            optionsGrid.innerHTML = '';
+            feedbackSection.style.display = 'none';
+            feedbackSection.className = 'feedback-section';
+            nextBtn.style.display = 'none';
+
+            data.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            const data = quizData[currentQuestion];
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === data.correct) {
+                selectedBtn.classList.add('correct');
+                feedbackSection.classList.add('correct');
+                feedbackTitle.textContent = "Correto!";
+                score++;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                buttons[data.correct].classList.add('correct');
+                feedbackSection.classList.add('incorrect');
+                feedbackTitle.textContent = "Incorreto";
+            }
+
+            feedbackText.textContent = data.explanation;
+            feedbackSection.style.display = 'block';
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContent.style.display = 'none';
+            resultCard.style.display = 'block';
+            finalScore.textContent = score;
+            progressFill.style.width = '100%';
+
+            if (score === 10) {
+                scoreMessage.textContent = "Perfeito! Você domina este assunto.";
+            } else if (score >= 7) {
+                scoreMessage.textContent = "Muito bom! Você entendeu os conceitos principais.";
+            } else {
+                scoreMessage.textContent = "Que tal revisar a aula para melhorar sua pontuação?";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>
